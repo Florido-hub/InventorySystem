@@ -10,11 +10,9 @@ public class Product {
     private String descricao;
     private Integer quantidade;
 
-    public Product(Integer ID, String nome, Double preco, String descricao, Integer quantidade) {
-        this.ID = ID;
+    public Product(String nome, Double preco,Integer quantidade) {
         this.nome = nome;
         this.preco = preco;
-        this.descricao = descricao;
         this.quantidade = quantidade;
     }
 

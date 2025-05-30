@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class ProdutoDAO {
 
-    public void inserir(Product produto) {
+    public String inserir(Product produto) {
         String selectSql = "SELECT quantidade FROM produtos WHERE nome = ?";
         String updateSql = "UPDATE produtos SET quantidade = quantidade + ? WHERE nome = ?";
         String insertSql = "INSERT INTO produtos (nome, preco, quantidade) VALUES (?, ?, ?)";
@@ -28,7 +28,7 @@ public class ProdutoDAO {
                         updateStmt.setInt(1, produto.getQuantidade());
                         updateStmt.setString(2, produto.getNome());
                         updateStmt.executeUpdate();
-                        System.out.println("Quantidade atualizada.");
+                        return "Produto atualizado com sucesso";
                     }
                 } else {
                     // se não existir: faz insert:
@@ -37,7 +37,7 @@ public class ProdutoDAO {
                         insertStmt.setDouble(2, produto.getPreco());
                         insertStmt.setInt(3, produto.getQuantidade());
                         insertStmt.executeUpdate();
-                        System.out.println("Produto inserido.");
+                        return "Produto inserido";
                     }
                 }
             }
@@ -45,5 +45,6 @@ public class ProdutoDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return selectSql;
     }
 }
