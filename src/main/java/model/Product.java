@@ -7,10 +7,9 @@ public class Product {
     private Integer ID;
     private String nome;
     private Double preco;
-    private String descricao;
     private Integer quantidade;
 
-    public Product(String nome, Double preco,Integer quantidade) {
+    public Product(String nome, Double preco, Integer quantidade) {
         this.nome = nome;
         this.preco = preco;
         this.quantidade = quantidade;
@@ -40,14 +39,6 @@ public class Product {
         this.preco = preco;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public Integer getQuantidade() {
         return quantidade;
     }
@@ -73,8 +64,6 @@ public class Product {
         return "Produto{" +
                 "ID=" + ID +
                 ", nome='" + nome + '\'' +
-                ", preco=" + preco +
-                ", descricao='" + descricao + '\'' +
-                '}';
+                ", preco=" + preco + '}';
     }
 }

@@ -1,6 +1,8 @@
 package dao;
 
 import database.Conexao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Product;
 
 import java.sql.Connection;
@@ -47,4 +49,28 @@ public class ProdutoDAO {
         }
         return selectSql;
     }
+
+    //public String remove(String nome, int quantidadeParaRemover) {
+    // }
+
+    public ObservableList<Product> listar() {
+        ObservableList<Product> produtos = FXCollections.observableArrayList();
+        String sql = "SELECT ID, nome, preco, quantidade FROM produtos";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Product produto = new Product(rs.getString("nome"), rs.getDouble("preco"), rs.getInt("quantidade"));
+                produto.setID(rs.getInt("ID"));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produtos;
+    }
+
 }
