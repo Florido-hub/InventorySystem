@@ -15,12 +15,23 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product createProduct(Product product){
-        productRepository.save(product);
-        return product;
+        return productRepository.save(product);
     }
 
     public List<ProductDTO> getAllProducts(){
         var product = productRepository.findAll();
         return product.stream().map(x -> new ProductDTO(x)).toList();
+    }
+
+    public Product addQuantity(Long id, int quantity){
+        var product = productRepository.findById(id).get();
+        product.setQuantity(product.getQuantity() + quantity);
+        return productRepository.save(product);
+    }
+
+    public Product removeQuantity(Long id, int quantity) {
+        var product = productRepository.findById(id).get();
+        product.setQuantity(product.getQuantity() - quantity);
+        return productRepository.save(product);
     }
 }

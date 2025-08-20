@@ -26,4 +26,14 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
         return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
+
+    @PutMapping("/{id}/add")
+    public ResponseEntity<Product> addQuantity(@PathVariable Long id,@RequestBody Integer quantity){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.addQuantity(id,quantity));
+    }
+
+    @PutMapping("/{id}/remove")
+    public ResponseEntity<Product> removeQuantity(@PathVariable Long id, @RequestBody Integer quantity) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.removeQuantity(id,quantity));
+    }
 }
