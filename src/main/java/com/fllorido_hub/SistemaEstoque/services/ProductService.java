@@ -42,15 +42,18 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO removeQuantity(Long id, QuantityDTO quantity) {
-        var productm = productRepository.findById(id).get();
-        productm.setQuantity(productm.getQuantity() - quantity.getQuantity());
-        if (productm.getQuantity() <= 0) {
-            productRepository.delete(productm);
-        } else {
-            productRepository.save(productm);
+    public ProductDTO removeQuantity(Long id, QuantityDTO quantity){
+        var productm = productRepository.findById(id);
+        if(productm.isEmpty())
+            throw new RuntimeException("Produto nao encontrado");
+        var product = productm.get();
+        int newQuantity = product.getQuantity() - quantity.getQuantity();
+        if (newQuantity < 0) {
+            throw new RuntimeException("Nao tem produto suficiente no estoque");
         }
-        return new ProductDTO(productm);
+        product.setQuantity(newQuantity);
+        productRepository.save(product);
+        return new ProductDTO(product);
     }
 
     @Transactional
