@@ -3,6 +3,7 @@ package com.fllorido_hub.SistemaEstoque.services;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductListDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
+import com.fllorido_hub.SistemaEstoque.model.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
 import com.fllorido_hub.SistemaEstoque.projections.ProductProjection;
 import com.fllorido_hub.SistemaEstoque.repositories.ProductRepository;
@@ -50,8 +51,9 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductListDTO> searchByList(Long listId){
-        List<ProductProjection> productProjection = productRepository.searchByList(listId);
-        return productProjection.stream().map(x -> new ProductListDTO(x)).toList();
+    public List<ProductDTO> findByCategory(Category category){
+        var list = productRepository.findByCategory(category);
+        return list.stream().map(x -> new ProductDTO(x)).toList();
     }
+
 }

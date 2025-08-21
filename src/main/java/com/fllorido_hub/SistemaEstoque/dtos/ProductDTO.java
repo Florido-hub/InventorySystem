@@ -5,7 +5,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
-public class git ProductDTO {
+public class ProductDTO {
     private Long id;
     private String name;
     private Double price;
