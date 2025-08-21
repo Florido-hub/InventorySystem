@@ -1,12 +1,12 @@
 package com.fllorido_hub.SistemaEstoque.services;
 
 import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
-import com.fllorido_hub.SistemaEstoque.dtos.ProductListDTO;
+import com.fllorido_hub.SistemaEstoque.dtos.ProductRecordDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
 import com.fllorido_hub.SistemaEstoque.model.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
-import com.fllorido_hub.SistemaEstoque.projections.ProductProjection;
 import com.fllorido_hub.SistemaEstoque.repositories.ProductRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +19,12 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    @Transactional(readOnly = true)
-    public Product createProduct(Product product){
+    @Transactional
+    public ProductDTO createProduct(ProductRecordDTO productRecordDTO){
+        Product product = new Product();
+        BeanUtils.copyProperties(productRecordDTO, product);
         productRepository.save(product);
-        return product;
+        return new ProductDTO(product);
     }
 
     @Transactional(readOnly = true)
@@ -32,14 +34,15 @@ public class ProductService {
     }
 
     @Transactional
-    public Product addQuantity(Long id, QuantityDTO quantity){
+    public ProductDTO addQuantity(Long id, QuantityDTO quantity){
         var product = productRepository.findById(id).get();
         product.setQuantity(product.getQuantity() + quantity.getQuantity());
-        return productRepository.save(product);
+        productRepository.save(product);
+        return new ProductDTO(product);
     }
 
     @Transactional
-    public Product removeQuantity(Long id, QuantityDTO quantity) {
+    public ProductDTO removeQuantity(Long id, QuantityDTO quantity) {
         var productm = productRepository.findById(id).get();
         productm.setQuantity(productm.getQuantity() - quantity.getQuantity());
         if (productm.getQuantity() <= 0) {
@@ -47,7 +50,7 @@ public class ProductService {
         } else {
             productRepository.save(productm);
         }
-        return productm;
+        return new ProductDTO(productm);
     }
 
     @Transactional

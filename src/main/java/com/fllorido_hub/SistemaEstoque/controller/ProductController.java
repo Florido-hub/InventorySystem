@@ -1,6 +1,7 @@
 package com.fllorido_hub.SistemaEstoque.controller;
 
 import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
+import com.fllorido_hub.SistemaEstoque.dtos.ProductRecordDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
 import com.fllorido_hub.SistemaEstoque.model.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
@@ -8,7 +9,6 @@ import com.fllorido_hub.SistemaEstoque.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Object> createProduct(@RequestBody Product product){
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRecordDTO product){
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(product));
     }
 
