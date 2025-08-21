@@ -21,7 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody ProductRecordDTO product){
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductRecordDTO product){
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(product));
     }
 
@@ -31,12 +31,12 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}/add")
-    public ResponseEntity<Product> addQuantity(@PathVariable Long id,@RequestBody QuantityDTO quantity){
+    public ResponseEntity<ProductDTO> addQuantity(@PathVariable Long id,@RequestBody QuantityDTO quantity){
         return ResponseEntity.status(HttpStatus.OK).body(productService.addQuantity(id,quantity));
     }
 
     @PatchMapping("/{id}/remove")
-    public ResponseEntity<Product> removeQuantity(@PathVariable Long id, @RequestBody QuantityDTO quantity) {
+    public ResponseEntity<ProductDTO> removeQuantity(@PathVariable Long id, @RequestBody QuantityDTO quantity) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.removeQuantity(id,quantity));
     }
 
