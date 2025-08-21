@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class BelonginPK implements Serializable {
+public class BelongingPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -18,10 +18,10 @@ public class BelonginPK implements Serializable {
     @JoinColumn(name = "list_id")
     private ProductList productList;
 
-    public BelonginPK() {
+    public BelongingPK() {
     }
 
-    public BelonginPK(Product product, ProductList productList) {
+    public BelongingPK(Product product, ProductList productList) {
         this.product = product;
         this.productList = productList;
     }
@@ -45,7 +45,7 @@ public class BelonginPK implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BelonginPK that)) return false;
+        if (!(o instanceof BelongingPK that)) return false;
         return Objects.equals(product, that.product) && Objects.equals(productList, that.productList);
     }
 

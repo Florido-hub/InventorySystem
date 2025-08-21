@@ -1,6 +1,7 @@
 package com.fllorido_hub.SistemaEstoque.controller;
 
 import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
+import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
 import com.fllorido_hub.SistemaEstoque.model.Product;
 import com.fllorido_hub.SistemaEstoque.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
     }
 
-    @PutMapping("/{id}/add")
-    public ResponseEntity<Product> addQuantity(@PathVariable Long id,@RequestBody Integer quantity){
+    @PatchMapping("/{id}/add")
+    public ResponseEntity<Product> addQuantity(@PathVariable Long id,@RequestBody QuantityDTO quantity){
         return ResponseEntity.status(HttpStatus.OK).body(productService.addQuantity(id,quantity));
     }
 
-    @PutMapping("/{id}/remove")
-    public ResponseEntity<Product> removeQuantity(@PathVariable Long id, @RequestBody Integer quantity) {
+    @PatchMapping("/{id}/remove")
+    public ResponseEntity<Product> removeQuantity(@PathVariable Long id, @RequestBody QuantityDTO quantity) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.removeQuantity(id,quantity));
     }
 }

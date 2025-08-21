@@ -1,6 +1,8 @@
 package com.fllorido_hub.SistemaEstoque.dtos;
 
 import com.fllorido_hub.SistemaEstoque.model.ProductList;
+import com.fllorido_hub.SistemaEstoque.projections.ProductProjection;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
@@ -14,6 +16,10 @@ public class ProductListDTO {
     public ProductListDTO(ProductList entity) {
         this.id = entity.getId();
         this.name = entity.getName();
+    }
+
+    public ProductListDTO(ProductProjection entity) {
+        BeanUtils.copyProperties(entity, this);
     }
 
     public Long getId() {

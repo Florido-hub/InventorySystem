@@ -5,28 +5,28 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_belongin")
-public class Belongin {
+@Table(name = "tb_belonging")
+public class Belonging {
 
     @EmbeddedId
-    private BelonginPK id = new BelonginPK();
+    private BelongingPK id = new BelongingPK();
 
     private Integer position;
 
-    public Belongin() {
+    public Belonging() {
     }
 
-    public Belongin(Product product, ProductList productList, Integer position) {
+    public Belonging(Product product, ProductList productList, Integer position) {
         this.id.setProduct(product);
         this.id.setProductList(productList);
         this.position = position;
     }
 
-    public BelonginPK getId() {
+    public BelongingPK getId() {
         return id;
     }
 
-    public void setId(BelonginPK id) {
+    public void setId(BelongingPK id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class Belongin {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Belongin belongin)) return false;
+        if (!(o instanceof Belonging belongin)) return false;
         return Objects.equals(id, belongin.id);
     }
 
