@@ -6,7 +6,10 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 public record ProductRecordDTO (
-        @NotBlank @Size(min = 3, max = 25, message = "Nome invalido") String name,
-        @NotNull @PositiveOrZero (message = "preco invalido")Double price,
-        @PositiveOrZero (message = "quantidade invalida")Integer quantity){
+        @NotBlank @Size(min = 3, max = 25, message = "Nome invalido")
+        String name,
+        @NotNull @PositiveOrZero (message = "preco invalido")
+        Double price,
+        @PositiveOrZero (message = "quantidade invalida")
+        Integer quantity){
 }
