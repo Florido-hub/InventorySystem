@@ -3,6 +3,8 @@ package com.fllorido_hub.SistemaEstoque.services;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductRecordDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
+import com.fllorido_hub.SistemaEstoque.exceptions.InvalidQuantityException;
+import com.fllorido_hub.SistemaEstoque.exceptions.ProductNotFoundException;
 import com.fllorido_hub.SistemaEstoque.model.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
 import com.fllorido_hub.SistemaEstoque.repositories.ProductRepository;
@@ -34,22 +36,26 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO addQuantity(Long id, QuantityDTO quantity){
-        var product = productRepository.findById(id).get();
+    public ProductDTO addQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException {
+        var product0 = productRepository.findById(id);
+        if(product0.isEmpty())
+            throw new ProductNotFoundException("ID not found");
+        var product = product0.get();
         product.setQuantity(product.getQuantity() + quantity.getQuantity());
+
         productRepository.save(product);
         return new ProductDTO(product);
     }
 
     @Transactional
-    public ProductDTO removeQuantity(Long id, QuantityDTO quantity){
+    public ProductDTO removeQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException, InvalidQuantityException {
         var productm = productRepository.findById(id);
         if(productm.isEmpty())
-            throw new RuntimeException("Produto nao encontrado");
+            throw new ProductNotFoundException("ID not found");
         var product = productm.get();
         int newQuantity = product.getQuantity() - quantity.getQuantity();
         if (newQuantity < 0) {
-            throw new RuntimeException("Nao tem produto suficiente no estoque");
+            throw new InvalidQuantityException("Nao tem produto suficiente no estoque");
         }
         product.setQuantity(newQuantity);
         productRepository.save(product);
@@ -61,5 +67,4 @@ public class ProductService {
         var list = productRepository.findByCategory(category);
         return list.stream().map(x -> new ProductDTO(x)).toList();
     }
-
 }

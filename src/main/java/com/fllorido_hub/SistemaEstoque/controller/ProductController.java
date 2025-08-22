@@ -4,7 +4,6 @@ import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductRecordDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
 import com.fllorido_hub.SistemaEstoque.model.Category;
-import com.fllorido_hub.SistemaEstoque.model.Product;
 import com.fllorido_hub.SistemaEstoque.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
