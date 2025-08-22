@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_cliente")
-public class Customer {
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,11 @@ public class Customer {
     @JoinColumn(name = "order_id")
     private List<Order> order;
 
-    public Customer() {
+    public Cliente() {
 
     }
 
-    public Customer(Long id, String nome, String email) {
+    public Cliente(Long id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -58,8 +58,8 @@ public class Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Customer customer)) return false;
-        return Objects.equals(id, customer.id);
+        if (!(o instanceof Cliente cliente)) return false;
+        return Objects.equals(id, cliente.id);
     }
 
     @Override

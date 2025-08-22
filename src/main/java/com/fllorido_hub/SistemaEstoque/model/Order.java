@@ -1,9 +1,12 @@
 package com.fllorido_hub.SistemaEstoque.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -15,18 +18,24 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
+    private Set<OrderItem> orderitem = new HashSet<>();
 
     private Double totalValue;
     private LocalDate date;
 
+
     public Order() {
     }
 
-    public Order(Long id, Customer customer, Double totalValue, LocalDate date) {
+    public Order(Long id, Cliente customer, Set<OrderItem> orderitem, Double totalValue, LocalDate date) {
         this.id = id;
-        this.customer = customer;
+        this.cliente = customer;
+        this.orderitem = orderitem;
         this.totalValue = totalValue;
         this.date = date;
     }
@@ -39,12 +48,12 @@ public class Order {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Double getTotalValue() {
@@ -61,6 +70,14 @@ public class Order {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Set<OrderItem> getOrderitem() {
+        return orderitem;
+    }
+
+    public void setOrderitem(Set<OrderItem> orderitem) {
+        this.orderitem = orderitem;
     }
 
     @Override
