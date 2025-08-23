@@ -1,9 +1,11 @@
 package com.fllorido_hub.SistemaEstoque.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_cliente")
@@ -17,9 +19,9 @@ public class Cliente {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
-    private List<Order> order;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
+    private Set<Order> order = new HashSet<>();
 
     public Cliente() {
 

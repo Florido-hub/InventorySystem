@@ -28,16 +28,20 @@ public class Order {
     private Double totalValue;
     private LocalDate date;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
 
     public Order() {
     }
 
-    public Order(Long id, Cliente customer, Set<OrderItem> orderitem, Double totalValue, LocalDate date) {
+    public Order(Long id, Cliente cliente, Set<OrderItem> orderitem, Double totalValue, LocalDate date, Status status) {
         this.id = id;
-        this.cliente = customer;
+        this.cliente = cliente;
         this.orderitem = orderitem;
         this.totalValue = totalValue;
         this.date = date;
+        this.status = status;
     }
 
     public Long getId() {
@@ -52,8 +56,16 @@ public class Order {
         return cliente;
     }
 
-    public void setCustomer(Cliente cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Set<OrderItem> getOrderitem() {
+        return orderitem;
+    }
+
+    public void setOrderitem(Set<OrderItem> orderitem) {
+        this.orderitem = orderitem;
     }
 
     public Double getTotalValue() {
@@ -72,12 +84,12 @@ public class Order {
         this.date = date;
     }
 
-    public Set<OrderItem> getOrderitem() {
-        return orderitem;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setOrderitem(Set<OrderItem> orderitem) {
-        this.orderitem = orderitem;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
