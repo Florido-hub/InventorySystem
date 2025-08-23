@@ -3,6 +3,7 @@ package com.fllorido_hub.SistemaEstoque.controller;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductResponseDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductRequestDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
+import com.fllorido_hub.SistemaEstoque.enums.Category;
 import com.fllorido_hub.SistemaEstoque.exceptions.InvalidQuantityException;
 import com.fllorido_hub.SistemaEstoque.exceptions.ProductNotFoundException;
 import com.fllorido_hub.SistemaEstoque.services.impl.ProductServiceImpl;
