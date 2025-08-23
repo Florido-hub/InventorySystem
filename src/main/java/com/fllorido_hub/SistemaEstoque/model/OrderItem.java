@@ -11,7 +11,7 @@ import java.util.Objects;
 public class OrderItem {
 
     @EmbeddedId
-    private OrderItemPK id = new OrderItemPK();
+    private OrderItemPK produtoId = new OrderItemPK();
 
     private Integer quantity;
 
@@ -19,17 +19,17 @@ public class OrderItem {
     }
 
     public OrderItem(Product product, Order order, Integer quantity) {
-        this.id.setProduct(product);
-        this.id.setOrder(order);
+        this.produtoId.setProduct(product);
+        this.produtoId.setOrder(order);
         this.quantity = quantity;
     }
 
     public OrderItemPK getId() {
-        return id;
+        return produtoId;
     }
 
     public void setId(OrderItemPK id) {
-        this.id = id;
+        this.produtoId = id;
     }
 
     public Integer getQuantity() {
@@ -44,11 +44,11 @@ public class OrderItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrderItem orderItem)) return false;
-        return Objects.equals(id, orderItem.id);
+        return Objects.equals(produtoId, orderItem.produtoId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(produtoId);
     }
 }
