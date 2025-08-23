@@ -1,5 +1,4 @@
 package com.fllorido_hub.SistemaEstoque.services;
-import com.fllorido_hub.SistemaEstoque.model.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
 import org.springframework.stereotype.Service;
 

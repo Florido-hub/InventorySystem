@@ -1,6 +1,7 @@
 package com.fllorido_hub.SistemaEstoque.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fllorido_hub.SistemaEstoque.enums.Status;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -35,10 +36,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, Cliente cliente, Set<OrderItem> orderitem, Double totalValue, LocalDate date, Status status) {
+    public Order(Long id, Cliente cliente, Double totalValue, LocalDate date, Status status) {
         this.id = id;
         this.cliente = cliente;
-        this.orderitem = orderitem;
         this.totalValue = totalValue;
         this.date = date;
         this.status = status;

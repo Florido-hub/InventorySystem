@@ -1,6 +1,6 @@
 package com.fllorido_hub.SistemaEstoque.repositories;
 
-import com.fllorido_hub.SistemaEstoque.model.Category;
+import com.fllorido_hub.SistemaEstoque.enums.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

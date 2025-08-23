@@ -5,16 +5,16 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
-public class ProductDTO {
+public class ProductResponseDTO {
     private Long id;
     private String name;
     private Double price;
     private Integer quantity;
 
-    public ProductDTO() {
+    public ProductResponseDTO() {
     }
 
-    public ProductDTO(Product entity) {
+    public ProductResponseDTO(Product entity) {
         BeanUtils.copyProperties(entity, this);
     }
 
@@ -53,7 +53,7 @@ public class ProductDTO {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductDTO that)) return false;
+        if (!(o instanceof ProductResponseDTO that)) return false;
         return Objects.equals(id, that.id);
     }
 

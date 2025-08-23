@@ -1,6 +1,7 @@
 package com.fllorido_hub.SistemaEstoque.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fllorido_hub.SistemaEstoque.enums.Category;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -32,9 +33,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, Set<OrderItem> orderitem, String name, Double price, Integer quantity, Category category) {
+    public Product(Long id, String name, Double price, Integer quantity, Category category) {
         this.id = id;
-        this.orderitem = orderitem;
         this.name = name;
         this.price = price;
         this.quantity = quantity;

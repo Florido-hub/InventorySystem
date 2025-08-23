@@ -1,4 +1,4 @@
-package com.fllorido_hub.SistemaEstoque.model;
+package com.fllorido_hub.SistemaEstoque.enums;
 
 public enum Status {
     PENDENTE,

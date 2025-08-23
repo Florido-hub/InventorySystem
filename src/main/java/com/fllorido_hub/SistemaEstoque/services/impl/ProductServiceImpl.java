@@ -1,11 +1,11 @@
 package com.fllorido_hub.SistemaEstoque.services.impl;
 
-import com.fllorido_hub.SistemaEstoque.dtos.ProductDTO;
-import com.fllorido_hub.SistemaEstoque.dtos.ProductRecordDTO;
+import com.fllorido_hub.SistemaEstoque.dtos.ProductResponseDTO;
+import com.fllorido_hub.SistemaEstoque.dtos.ProductRequestDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
+import com.fllorido_hub.SistemaEstoque.enums.Category;
 import com.fllorido_hub.SistemaEstoque.exceptions.InvalidQuantityException;
 import com.fllorido_hub.SistemaEstoque.exceptions.ProductNotFoundException;
-import com.fllorido_hub.SistemaEstoque.model.Category;
 import com.fllorido_hub.SistemaEstoque.model.Product;
 import com.fllorido_hub.SistemaEstoque.repositories.ProductRepository;
 import org.springframework.beans.BeanUtils;
@@ -26,21 +26,21 @@ public class ProductServiceImpl {
     }
 
     @Transactional
-    public ProductDTO createProduct(ProductRecordDTO productRecordDTO){
+    public ProductResponseDTO createProduct(ProductRequestDTO productRecordDTO){
         Product product = new Product();
         BeanUtils.copyProperties(productRecordDTO, product);
         productRepository.save(product);
-        return new ProductDTO(product);
+        return new ProductResponseDTO(product);
     }
 
     @Transactional(readOnly = true)
-    public List<ProductDTO> getAllProducts(){
+    public List<ProductResponseDTO> getAllProducts(){
         var product = productRepository.findAll();
-        return product.stream().map(x -> new ProductDTO(x)).toList();
+        return product.stream().map(x -> new ProductResponseDTO(x)).toList();
     }
 
     @Transactional
-    public ProductDTO addQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException {
+    public ProductResponseDTO addQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException {
         var product0 = productRepository.findById(id);
         if(product0.isEmpty())
             throw new ProductNotFoundException("ID not found");
@@ -48,11 +48,11 @@ public class ProductServiceImpl {
         product.setQuantity(product.getQuantity() + quantity.getQuantity());
 
         productRepository.save(product);
-        return new ProductDTO(product);
+        return new ProductResponseDTO(product);
     }
 
     @Transactional
-    public ProductDTO removeQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException, InvalidQuantityException {
+    public ProductResponseDTO removeQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException, InvalidQuantityException {
         var productm = productRepository.findById(id);
         if(productm.isEmpty())
             throw new ProductNotFoundException("ID not found");
@@ -63,12 +63,12 @@ public class ProductServiceImpl {
         }
         product.setQuantity(newQuantity);
         productRepository.save(product);
-        return new ProductDTO(product);
+        return new ProductResponseDTO(product);
     }
 
     @Transactional
-    public List<ProductDTO> findByCategory(Category category){
+    public List<ProductResponseDTO> findByCategory(Category category){
         var list = productRepository.findByCategory(category);
-        return list.stream().map(x -> new ProductDTO(x)).toList();
+        return list.stream().map(x -> new ProductResponseDTO(x)).toList();
     }
 }
