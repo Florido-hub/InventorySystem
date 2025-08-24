@@ -17,8 +17,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.product", fetch = FetchType.LAZY)
     private Set<OrderItem> orderitem = new HashSet<>();
 
     private String name;

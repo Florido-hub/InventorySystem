@@ -19,7 +19,6 @@ public class Cliente {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
     private Set<Order> order = new HashSet<>();
 

@@ -22,8 +22,7 @@ public class Order {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.order", fetch = FetchType.LAZY)
     private Set<OrderItem> orderitem = new HashSet<>();
 
     private Double totalValue;
