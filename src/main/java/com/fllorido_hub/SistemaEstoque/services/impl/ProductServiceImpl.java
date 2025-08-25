@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,5 +71,11 @@ public class ProductServiceImpl {
     public List<ProductResponseDTO> findByCategory(Category category){
         var list = productRepository.findByCategory(category);
         return list.stream().map(x -> new ProductResponseDTO(x)).toList();
+    }
+
+    @Transactional
+    public List<ProductResponseDTO> filterByPrice(Double min, Double max){
+        var productForPrice = productRepository.findByPriceBetween(min, max);
+        return productForPrice.stream().map(x -> new ProductResponseDTO(x)).toList();
     }
 }

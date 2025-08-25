@@ -37,17 +37,27 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}/add")
-    public ResponseEntity<ProductResponseDTO> addQuantity(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantity) throws ProductNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.addQuantity(id,quantity));
+    public ResponseEntity<ProductResponseDTO> addQuantity(@PathVariable Long id, @RequestParam int quantity) throws ProductNotFoundException {
+        var n = new QuantityDTO();
+        n.setQuantity(quantity);
+        return ResponseEntity.status(HttpStatus.OK).body(productService.addQuantity(id,n));
     }
 
     @PatchMapping("/{id}/remove")
-    public ResponseEntity<ProductResponseDTO> removeQuantity(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantity) throws InvalidQuantityException, ProductNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.removeQuantity(id,quantity));
+    public ResponseEntity<ProductResponseDTO> removeQuantity(@PathVariable Long id, @RequestParam int quantity) throws InvalidQuantityException, ProductNotFoundException {
+        var n = new QuantityDTO();
+        n.setQuantity(quantity);
+        return ResponseEntity.status(HttpStatus.OK).body(productService.removeQuantity(id,n));
     }
 
     @GetMapping("/categoria/{category}")
     public ResponseEntity<List<ProductResponseDTO>> findByCategoria(@PathVariable Category category){
         return ResponseEntity.status(HttpStatus.OK).body(productService.findByCategory(category));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<ProductResponseDTO>> filterByPrice(@RequestParam Double minprice, @RequestParam Double maxprice){
+        var n = productService.filterByPrice(minprice, maxprice);
+        return ResponseEntity.status(HttpStatus.OK).body(n);
     }
 }
