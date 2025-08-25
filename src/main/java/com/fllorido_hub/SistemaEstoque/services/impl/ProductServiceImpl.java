@@ -2,7 +2,6 @@ package com.fllorido_hub.SistemaEstoque.services.impl;
 
 import com.fllorido_hub.SistemaEstoque.dtos.ProductResponseDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductRequestDTO;
-import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
 import com.fllorido_hub.SistemaEstoque.enums.Category;
 import com.fllorido_hub.SistemaEstoque.exceptions.InvalidQuantityException;
 import com.fllorido_hub.SistemaEstoque.exceptions.ProductNotFoundException;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,29 +39,33 @@ public class ProductServiceImpl {
     }
 
     @Transactional
-    public ProductResponseDTO addQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException {
+    public ProductResponseDTO addQuantity(Long id, int quantity) throws ProductNotFoundException {
         var product0 = productRepository.findById(id);
         if(product0.isEmpty())
             throw new ProductNotFoundException("ID not found");
         var product = product0.get();
-        product.setQuantity(product.getQuantity() + quantity.getQuantity());
+        product.setQuantity(product.getQuantity() + quantity);
 
         productRepository.save(product);
         return new ProductResponseDTO(product);
     }
 
     @Transactional
-    public ProductResponseDTO removeQuantity(Long id, QuantityDTO quantity) throws ProductNotFoundException, InvalidQuantityException {
+    public ProductResponseDTO removeQuantity(Long id, int quantity) throws ProductNotFoundException, InvalidQuantityException {
         var productm = productRepository.findById(id);
-        if(productm.isEmpty())
+        if (productm.isEmpty())
             throw new ProductNotFoundException("ID not found");
+
         var product = productm.get();
-        int newQuantity = product.getQuantity() - quantity.getQuantity();
+        int newQuantity = product.getQuantity() - quantity;
+
         if (newQuantity < 0) {
-            throw new InvalidQuantityException("Nao tem produto suficiente no estoque");
+            throw new InvalidQuantityException("Não tem produto suficiente no estoque");
         }
+
         product.setQuantity(newQuantity);
         productRepository.save(product);
+
         return new ProductResponseDTO(product);
     }
 

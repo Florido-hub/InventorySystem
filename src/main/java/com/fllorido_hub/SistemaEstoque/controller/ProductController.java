@@ -2,7 +2,6 @@ package com.fllorido_hub.SistemaEstoque.controller;
 
 import com.fllorido_hub.SistemaEstoque.dtos.ProductResponseDTO;
 import com.fllorido_hub.SistemaEstoque.dtos.ProductRequestDTO;
-import com.fllorido_hub.SistemaEstoque.dtos.QuantityDTO;
 import com.fllorido_hub.SistemaEstoque.enums.Category;
 import com.fllorido_hub.SistemaEstoque.exceptions.InvalidQuantityException;
 import com.fllorido_hub.SistemaEstoque.exceptions.ProductNotFoundException;
@@ -38,16 +37,14 @@ public class ProductController {
 
     @PatchMapping("/{id}/add")
     public ResponseEntity<ProductResponseDTO> addQuantity(@PathVariable Long id, @RequestParam int quantity) throws ProductNotFoundException {
-        var n = new QuantityDTO();
-        n.setQuantity(quantity);
-        return ResponseEntity.status(HttpStatus.OK).body(productService.addQuantity(id,n));
+        var product = productService.addQuantity(id, quantity);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
     @PatchMapping("/{id}/remove")
     public ResponseEntity<ProductResponseDTO> removeQuantity(@PathVariable Long id, @RequestParam int quantity) throws InvalidQuantityException, ProductNotFoundException {
-        var n = new QuantityDTO();
-        n.setQuantity(quantity);
-        return ResponseEntity.status(HttpStatus.OK).body(productService.removeQuantity(id,n));
+        var product = productService.removeQuantity(id, quantity);
+        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
     @GetMapping("/categoria/{category}")
